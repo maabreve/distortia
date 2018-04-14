@@ -17,6 +17,9 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { CallbackComponent } from './pages/callback/callback.component';
 import { LoadingComponent } from './core/loading.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { SongsComponent } from './pages/songs/songs.component';
+import { SongsDetailComponent } from './pages/songs/songs-detail/songs-detail.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { LoadingComponent } from './core/loading.component';
     HeaderComponent,
     FooterComponent,
     CallbackComponent,
-    LoadingComponent
+    LoadingComponent,
+    AdminComponent,
+    SongsComponent,
+    SongsDetailComponent
   ],
   imports: [
     BrowserModule,
