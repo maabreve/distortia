@@ -1,0 +1,56 @@
+<!-- src/app/pages/home/home.component.html -->
+<h1 class="text-center">{{pageTitle}}</h1>
+<app-loading *ngIf="loading"></app-loading>
+
+<ng-template [ngIf]="utils.isLoaded(loading)">
+  <ng-template [ngIf]="songsList">
+    <ng-template [ngIf]="songsList.length">
+
+      <!-- Search songss -->
+      <section class="search input-group mb-3">
+        <label class="input-group-addon" for="search">Search</label>
+        <input
+          id="search"
+          type="text"
+          class="form-control"
+          [(ngModel)]="query"
+          (keyup)="searchSongs()" />
+        <span class="input-group-btn">
+          <button
+            class="btn btn-danger"
+            (click)="resetQuery()"
+            [disabled]="!query">&times;</button>
+        </span>
+      </section>
+
+      <!-- No search results -->
+      <p *ngIf="fs.noSearchResults(filteredSongs, query)" class="alert alert-warning">
+        No song found for <em class="text-danger">{{query}}</em>, sorry!
+      </p>
+
+      <!-- Songs listing -->
+      <section class="list-group">
+        <a
+          *ngFor="let songs of fs.orderByDate(filteredSongs, 'startDatetime')"
+          [routerLink]="['/songs', songs._id]"
+          class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1" [innerHTML]="songs.title"></h5>
+            <small>{{utils.eventDates(songs.startDatetime, songs.endDatetime)}}</small>
+          </div>
+        </a>
+      </section>
+    </ng-template>
+
+    <!-- No upcoming public song available -->
+    <p *ngIf="!eventList.length" class="alert alert-info">
+      No upcoming public song available.
+    </p>
+  </ng-template>
+
+  <!-- Error loading songs -->
+  <p *ngIf="error" class="alert alert-danger">
+    <strong>Oops!</strong> There was an error retrieving songs data.
+  </p>
+
+</ng-template>
